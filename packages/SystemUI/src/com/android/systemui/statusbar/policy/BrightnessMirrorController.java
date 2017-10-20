@@ -24,6 +24,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import android.content.Context;
+
 import com.android.internal.util.Preconditions;
 import com.android.systemui.R;
 import com.android.systemui.statusbar.phone.NotificationPanelView;
@@ -43,11 +45,14 @@ public class BrightnessMirrorController
     private final ArraySet<BrightnessMirrorListener> mBrightnessMirrorListeners = new ArraySet<>();
     private final int[] mInt2Cache = new int[2];
     private View mBrightnessMirror;
+    private Context mContext;
 
-    public BrightnessMirrorController(StatusBarWindowView statusBarWindow,
+    public BrightnessMirrorController(Context context, StatusBarWindowView statusBarWindow,
             @NonNull Consumer<Boolean> visibilityCallback) {
+        mContext = context;        
         mStatusBarWindow = statusBarWindow;
         mBrightnessMirror = statusBarWindow.findViewById(R.id.brightness_mirror);
+        setPadding();
         mNotificationPanel = statusBarWindow.findViewById(R.id.notification_panel);
         mNotificationPanel.setPanelAlphaEndAction(() -> {
             mBrightnessMirror.setVisibility(View.INVISIBLE);
@@ -104,6 +109,12 @@ public class BrightnessMirrorController
         reinflate();
     }
 
+    private void setPadding(){
+        mBrightnessMirror.setPadding(mBrightnessMirror.getPaddingLeft(),
+                    mBrightnessMirror.getPaddingTop(), mBrightnessMirror.getPaddingRight(),
+                    mContext.getResources().getDimensionPixelSize(R.dimen.qs_brightness_footer_padding));
+    }
+
     private void reinflate() {
         ContextThemeWrapper qsThemeContext =
                 new ContextThemeWrapper(mBrightnessMirror.getContext(), R.style.qs_theme);
@@ -111,6 +122,7 @@ public class BrightnessMirrorController
         mStatusBarWindow.removeView(mBrightnessMirror);
         mBrightnessMirror = LayoutInflater.from(qsThemeContext).inflate(
                 R.layout.brightness_mirror, mStatusBarWindow, false);
+        setPadding();
         mStatusBarWindow.addView(mBrightnessMirror, index);
 
         for (int i = 0; i < mBrightnessMirrorListeners.size(); i++) {
