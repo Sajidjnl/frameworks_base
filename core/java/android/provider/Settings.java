@@ -5069,6 +5069,18 @@ public final class Settings {
          *
          * @hide
          */
+
+
+        /**
+         * Whether to enable gaming mode or not
+         *
+         * @hide
+         */
+        public static final String ENABLE_GAMING_MODE = "enable_gaming_mode";
+
+        private static final Validator ENABLE_GAMING_MODE_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
         public static final String[] SETTINGS_TO_BACKUP = {
             STAY_ON_WHILE_PLUGGED_IN,   // moved to global
             WIFI_USE_STATIC_IP,
@@ -5138,6 +5150,7 @@ public final class Settings {
             LESS_BORING_HEADS_UP,
             QS_RUNNING_SERVICES_TOGGLE,
             THEMING_SETTINGS_DASHBOARD_ICONS,
+            ENABLE_GAMING_MODE,
         };
 
         /**
@@ -5292,6 +5305,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LESS_BORING_HEADS_UP);
             PRIVATE_SETTINGS.add(QS_RUNNING_SERVICES_TOGGLE);
             PRIVATE_SETTINGS.add(THEMING_SETTINGS_DASHBOARD_ICONS);
+            PRIVATE_SETTINGS.add(ENABLE_GAMING_MODE);
         }
 
         /**
@@ -5413,6 +5427,7 @@ public final class Settings {
             VALIDATORS.put(QS_RUNNING_SERVICES_TOGGLE,QS_RUNNING_SERVICES_TOGGLE_VALIDATOR);
             VALIDATORS.put(THEMING_SETTINGS_DASHBOARD_ICONS,
                     THEMING_SETTINGS_DASHBOARD_ICONS_VALIDATOR);
+            VALIDATORS.put(ENABLE_GAMING_MODE,ENABLE_GAMING_MODE_VALIDATOR);
         }
 
         /**
