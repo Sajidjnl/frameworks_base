@@ -17,6 +17,7 @@
 package com.android.internal.statusbar;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
@@ -107,6 +108,18 @@ interface IStatusBarService
      * ABC
      */
     void toggleCameraFlash();
-    void leftInLandscapeChanged(boolean isLeft);
     void setAutoRotate(boolean enabled);
+    void restartUI();
+
+    // Start SmartNav methods
+    void toggleRecentApps();
+    void toggleSplitScreen();
+    void preloadRecentApps();
+    void cancelPreloadRecentApps();
+    void startAssist(in Bundle args);
+    void screenPinningStateChanged(boolean enabled);
+    void leftInLandscapeChanged(boolean isLeft);
+    void toggleFlashlight();
+    void toggleNavigationEditor();
+    void dispatchNavigationEditorResults(in Intent intent);
 }
