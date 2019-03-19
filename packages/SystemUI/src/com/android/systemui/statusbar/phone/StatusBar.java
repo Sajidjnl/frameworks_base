@@ -141,6 +141,12 @@ import com.android.internal.statusbar.IStatusBarService;
 import com.android.internal.statusbar.NotificationVisibility;
 import com.android.internal.statusbar.StatusBarIcon;
 import com.android.internal.statusbar.ThemeAccentUtils;
+import com.android.internal.util.gzosp.ImageHelper;
+import com.android.internal.utils.ActionConstants;
+import com.android.internal.utils.ActionUtils;
+import com.android.internal.utils.SmartPackageMonitor;
+import com.android.internal.utils.SmartPackageMonitor.PackageChangedListener;
+import com.android.internal.utils.SmartPackageMonitor.PackageState;
 import com.android.internal.widget.LockPatternUtils;
 import com.android.internal.widget.MessagingGroup;
 import com.android.internal.widget.MessagingMessage;
@@ -373,6 +379,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     protected FingerprintUnlockController mFingerprintUnlockController;
     private LightBarController mLightBarController;
     protected LockscreenWallpaper mLockscreenWallpaper;
+    private int mAlbumArtFilter;
 
     private int mNaturalBarHeight = -1;
 
@@ -1742,7 +1749,17 @@ public class StatusBar extends SystemUI implements DemoMode,
                 // might still be null
             }
             if (artworkBitmap != null) {
-                artworkDrawable = new BitmapDrawable(mBackdropBack.getResources(), artworkBitmap);
+                switch (mAlbumArtFilter) {
+                    case 1:
+                        artworkDrawable = new BitmapDrawable(mBackdropBack.getResources(), ImageHelper.toGrayscale(artworkBitmap));
+                        break;
+                    case 2:
+                        artworkDrawable = new BitmapDrawable(mBackdropBack.getResources(), ImageHelper.getBlurredImage(mContext, artworkBitmap));
+                        break;
+                    case 0:
+                    default:
+                        artworkDrawable = new BitmapDrawable(mBackdropBack.getResources(), artworkBitmap);
+                }
             }
         }
         boolean allowWhenShade = false;
@@ -5312,6 +5329,10 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_SMART_PULLDOWN),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                  Settings.System.LOCKSCREEN_ALBUM_ART_FILTER),
+                  false, this, UserHandle.USER_ALL);
+            update();
         }
 
         @Override
@@ -5351,6 +5372,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(Settings.System.DISPLAY_CUTOUT_MODE)) ||
                     uri.equals(Settings.System.getUriFor(Settings.System.STOCK_STATUSBAR_IN_HIDE))) {
                 handleCutout(null);
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_ALBUM_ART_FILTER))) {
+                updateLockscreenFilter();
             }
         }
 
@@ -5362,6 +5386,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             setPulseBlacklist();
             setStatusBarWindowViewOptions();
             setLockscreenMediaMetadata();
+            updateLockscreenFilter();
         }
     }
 
@@ -5422,6 +5447,12 @@ public class StatusBar extends SystemUI implements DemoMode,
         mLockscreenMediaMetadata = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.LOCKSCREEN_MEDIA_METADATA, 0, UserHandle.USER_CURRENT) == 1;
     }
+
+    private void updateLockscreenFilter() {
+        mAlbumArtFilter = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.LOCKSCREEN_ALBUM_ART_FILTER, 0,
+                UserHandle.USER_CURRENT);
+      }
 
     private final BroadcastReceiver mBannerActionBroadcastReceiver = new BroadcastReceiver() {
         @Override
