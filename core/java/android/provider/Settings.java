@@ -4384,6 +4384,13 @@ public final class Settings {
          */
         public static final String LOCKSCREEN_INFO = "lockscreen_info";
 
+       /**
+         * Change font size for the lockscreen text clock widget
+         *
+         * @hide
+         */
+        public static final String CUSTOM_TEXT_CLOCK_FONT_SIZE = "custom_text_clock_font_size";
+
         /**
          * Three Finger Gesture from Oppo
          * @hide
