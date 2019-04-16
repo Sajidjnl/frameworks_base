@@ -29,6 +29,10 @@
 ^2"</item>
      </plurals>
 
+    <!-- CustomText clock -->
+    <string name="high_noon_first_row">High</string>
+    <string name="high_noon_second_row">Noon</string>  
+
     <!-- Skeleton string format for displaying the date with number. -->
     <string name="abbrev_wday_day_no_year">eeeedd</string>
 
