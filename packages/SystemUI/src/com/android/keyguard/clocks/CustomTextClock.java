@@ -315,9 +315,5 @@ public class CustomTextClock extends TextView {
 	    updateClockSize();
         }
     }
-
-    private boolean langExEval (String langVal) {
-        return (ArrayUtils.contains(langExceptions, langVal) ? true : false);
-    }
 }
 
