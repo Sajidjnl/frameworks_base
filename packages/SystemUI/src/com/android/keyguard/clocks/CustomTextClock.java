@@ -53,6 +53,7 @@ import android.graphics.drawable.BitmapDrawable;
 import java.lang.NullPointerException;
 
 import com.android.internal.util.ArrayUtils;
+import com.android.keyguard.clocks.ColorText;
 import com.android.keyguard.clocks.LangGuard;
 
 import java.lang.String;
@@ -162,19 +163,10 @@ public class CustomTextClock extends TextView {
         super.onDraw(canvas);
         if (handType == 2) {
             setText(topText);
-            Bitmap mBitmap;
-            WallpaperManager manager = WallpaperManager.getInstance(mContext);
-            BitmapDrawable mBitmapDrawable = ( (BitmapDrawable) manager.getLockDrawable());
-            try {
-                mBitmap = Bitmap.createBitmap(mBitmapDrawable.getBitmap());
-            } catch (NullPointerException e) {
-                mBitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ALPHA_8);
-                Log.d("CustomTextClock", "NPE");
-            }
-            Palette palette = Palette.generate(mBitmap);
-            setTextColor((Color.valueOf(palette.getLightVibrantColor(0x000000))).toArgb());
+            setTextColor(ColorText.getWallColor(mContext));
         } else {
 	    setTextColor(mClockColor);
+	}
     }
 
     private void onTimeChanged() {
