@@ -4391,6 +4391,12 @@ public final class Settings {
          */
         public static final String CUSTOM_TEXT_CLOCK_FONT_SIZE = "custom_text_clock_font_size";
 
+       /**
+         * Select alignment for text clock on lockscreen
+         * @hide
+         */
+        public static final String LOCKSCREEN_TEXT_CLOCK_ALIGN = "lockscreen_text_clock_align";
+
         /**
          * Three Finger Gesture from Oppo
          * @hide
