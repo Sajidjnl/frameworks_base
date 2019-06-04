@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
 /* //device/apps/common/AndroidManifest.xml
 **
@@ -4180,6 +4181,13 @@
                 <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </activity>
+        
+        <!-- Allows an application to toggle navigation button editor.
+         @hide -->
+    <permission android:name="android.permission.NAVIGATION_EDITOR"
+        android:label="@string/permlab_toggleNavigationEditor"
+        android:description="@string/permdesc_toggleNavigationEditor"
+        android:protectionLevel="signatureOrSystem" />
 
         <!-- Activity to prompt user if it's ok to create a new user sandbox for a
              specified account. -->
