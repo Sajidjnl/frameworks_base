@@ -26,11 +26,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.database.ContentObserver;
 import android.graphics.Canvas;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.UserHandle;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -78,11 +74,6 @@ public class CustomTextClock extends TextView {
     private Context mContext;
 
     private boolean h24;
-
-    private int mClockColor = 0xffffffff;
-    private int mClockSize = 32;
-    private SettingsObserver mSettingsObserver;
-    private int mWallpaperColor;
 
     public CustomTextClock(Context context) {
         this(context, null);
@@ -135,13 +126,6 @@ public class CustomTextClock extends TextView {
 
         // Make sure we update to the current time
         onTimeChanged();
-
-        if (mSettingsObserver == null) {
-            mSettingsObserver = new SettingsObserver(new Handler());
-        }
-        mSettingsObserver.observe();
-        updateClockColor();
-        updateClockSize();
     }
 
     @Override
@@ -273,47 +257,8 @@ public class CustomTextClock extends TextView {
         return NumString;
     }
 
-    private void updateClockColor() {
-        mClockColor = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.LOCKSCREEN_CLOCK_COLOR, 0xFFFFFFFF,
-                UserHandle.USER_CURRENT);
-            setTextColor(mClockColor);
-            onTimeChanged();
-    }
-
-    public void updateClockSize() {
-        mClockSize = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.CUSTOM_TEXT_CLOCK_FONT_SIZE, 32,
-                UserHandle.USER_CURRENT);
-            setTextSize(mClockSize);
-            onTimeChanged();
-    }
-
-    protected class SettingsObserver extends ContentObserver {
-        SettingsObserver(Handler handler) {
-            super(handler);
-        }
-        void observe() {
-            ContentResolver resolver = mContext.getContentResolver();
-
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_CLOCK_COLOR),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.CUSTOM_TEXT_CLOCK_FONT_SIZE),
-                    false, this, UserHandle.USER_ALL);
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-	    updateClockColor();
-	    updateClockSize();
-        }
-    }
-
     public void setAlign() {
          FixAlign = true;
          onTimeChanged();
     }
 }
-
