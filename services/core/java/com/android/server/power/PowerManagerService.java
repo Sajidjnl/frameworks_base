@@ -1015,6 +1015,8 @@ public final class PowerManagerService extends SystemService
                 com.android.internal.R.string.config_SmartChargingSupspendValue);
         mPowerInputResumeValue = resources.getString(
                 com.android.internal.R.string.config_SmartChargingResumeValue);
+        mSmartChargingResetStats = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.SMART_CHARGING_RESET_STATS, 0) == 1;
         mProximityWakeSupported = resources.getBoolean(
                  com.android.internal.R.bool.config_proximityCheckOnWake);
         mProximityWakeEnabledByDefaultConfig = resources.getBoolean(
@@ -1949,7 +1951,11 @@ public final class PowerManagerService extends SystemService
         }
 
         if (mSmartChargingEnabled && !mPowerInputSuspended && (mBatteryLevel >= mSmartChargingLevel)) {
+<<<<<<< HEAD
             Slog.i(TAG, "Smart charging reset stats: " + mSmartChargingResetStats);
+=======
+	    Slog.i(TAG, "Smart charging reset stats: " + mSmartChargingResetStats);
+>>>>>>> 99dae99e69f... SmartCharging: add reset battery stats option [1/2]
             if (mSmartChargingResetStats) {
                 try {
                      mBatteryStats.resetStatistics();
