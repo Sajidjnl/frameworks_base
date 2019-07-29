@@ -4920,6 +4920,16 @@ public final class Settings {
         public static final String WAKELOCK_BLOCKING_LIST = "wakelock_blocking_list";
 
         /**
+         * Whether to display the 4g or lte network icon in the statusbar	
+         * @hide	
+         */
+	
+        public static final String SHOW_LTE_FOURGEE = "show_lte_fourgee";
+	
+        /** @hide */	
+        private static final Validator SHOW_LTE_FOURGEE_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -4994,6 +5004,11 @@ public final class Settings {
             QS_SMART_PULLDOWN,
 	    ONE_HAND_MODE_ENABLED,
 	    SHOW_BATTERY_ESTIMATE_QQS,	
+<<<<<<< HEAD
+=======
+	    POCKET_JUDGE,
+            SHOW_LTE_FOURGEE,	
+>>>>>>> fdf68789ff1... fwb: SystemUI: Show 4G instead of LTE [1/2]
         };
 
         /**
@@ -5143,6 +5158,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(QS_SMART_PULLDOWN);
 	    PRIVATE_SETTINGS.add(ONE_HAND_MODE_ENABLED);
             PRIVATE_SETTINGS.add(SHOW_BATTERY_ESTIMATE_QQS);
+            PRIVATE_SETTINGS.add(SHOW_LTE_FOURGEE);
         }
 
         /**
@@ -5259,6 +5275,7 @@ public final class Settings {
             VALIDATORS.put(QS_SMART_PULLDOWN,QS_SMART_PULLDOWN_VALIDATOR);
 	    VALIDATORS.put(ONE_HAND_MODE_ENABLED,ONE_HAND_MODE_ENABLED_VALIDATOR);
             VALIDATORS.put(SHOW_BATTERY_ESTIMATE_QQS, SHOW_BATTERY_ESTIMATE_QQS_VALIDATOR);
+            VALIDATORS.put(SHOW_LTE_FOURGEE,SHOW_LTE_FOURGEE_VALIDATOR);
         }
 
         /**
