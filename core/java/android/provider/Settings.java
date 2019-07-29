@@ -4383,6 +4383,12 @@ public final class Settings {
          * @hide
          */
         public static final String LOCKSCREEN_INFO = "lockscreen_info";
+        
+         /**
+         * Select alignment for text clock on lockscreen
+         * @hide
+         */
+        public static final String LOCKSCREEN_TEXT_CLOCK_ALIGN = "lockscreen_text_clock_align";
 
         /**
          * Three Finger Gesture from Oppo
@@ -5016,11 +5022,7 @@ public final class Settings {
             QS_SMART_PULLDOWN,
 	    ONE_HAND_MODE_ENABLED,
 	    SHOW_BATTERY_ESTIMATE_QQS,	
-<<<<<<< HEAD
-=======
-	    POCKET_JUDGE,
             SHOW_LTE_FOURGEE,	
->>>>>>> fdf68789ff1... fwb: SystemUI: Show 4G instead of LTE [1/2]
         };
 
         /**
@@ -5171,7 +5173,6 @@ public final class Settings {
 	    PRIVATE_SETTINGS.add(ONE_HAND_MODE_ENABLED);
             PRIVATE_SETTINGS.add(SHOW_BATTERY_ESTIMATE_QQS);
             PRIVATE_SETTINGS.add(SHOW_LTE_FOURGEE);
-            PRIVATE_SETTINGS.add(HEADSET_CONNECT_PLAYER);
         }
 
         /**
