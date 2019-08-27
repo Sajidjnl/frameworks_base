@@ -1951,11 +1951,7 @@ public final class PowerManagerService extends SystemService
         }
 
         if (mSmartChargingEnabled && !mPowerInputSuspended && (mBatteryLevel >= mSmartChargingLevel)) {
-<<<<<<< HEAD
             Slog.i(TAG, "Smart charging reset stats: " + mSmartChargingResetStats);
-=======
-	    Slog.i(TAG, "Smart charging reset stats: " + mSmartChargingResetStats);
->>>>>>> 99dae99e69f... SmartCharging: add reset battery stats option [1/2]
             if (mSmartChargingResetStats) {
                 try {
                      mBatteryStats.resetStatistics();
