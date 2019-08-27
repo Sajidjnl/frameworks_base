@@ -5072,11 +5072,6 @@ public final class Settings {
         /**
          * @hide
          */
-        public static final String SMART_CHARGING_RESET_STATS = "smart_charging_reset_stats";
-
-        /**
-         * @hide
-         */
         public static final String SMART_CHARGING_LEVEL = "smart_charging_level";
 
         /**
